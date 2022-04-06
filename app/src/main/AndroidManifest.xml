@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinPracticeRecyclerView">
         <activity
+            android:name=".AddContact"
+            android:exported="false" />
+        <activity
+            android:name=".ContactDetails"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
