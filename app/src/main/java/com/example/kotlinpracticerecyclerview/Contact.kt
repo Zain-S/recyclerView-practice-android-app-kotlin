@@ -14,4 +14,8 @@ class Contact(_sNo: Int, _phoneNumber: String, _name: String) {
     fun getName(): String{
         return name
     }
+
+    override fun toString(): String {
+        return getSno()+getName()+getPhoneNumber()
+    }
 }

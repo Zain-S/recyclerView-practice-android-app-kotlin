@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         val o8 = Contact(8, "8", "Harry")
         val o9 = Contact(9, "9", "Harry")
         contacts.addAll(arrayListOf(o1, o2, o3, o4, o5, o6, o7, o8, o9))
+        Log.d("Contacts", contacts.toString())
 
         //binding root
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -56,6 +58,8 @@ class MainActivity : AppCompatActivity() {
                 if (data != null) {
                     adapter.addData(Contact(contacts.size+1, data.getStringExtra("phoneNumber").toString(), data.getStringExtra("name").toString()))
                 }
+                adapter = MyAdapter(this.applicationContext, contacts, onClickListener)
+                binding.rvContacts.adapter = adapter
             }
         }
         binding.btFloat.setOnClickListener{

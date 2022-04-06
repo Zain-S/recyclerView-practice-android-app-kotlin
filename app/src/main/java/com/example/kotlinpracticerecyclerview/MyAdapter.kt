@@ -1,6 +1,7 @@
 package com.example.kotlinpracticerecyclerview
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,8 @@ class MyAdapter(private val context: Context, dataSet: ArrayList<Contact>, priva
     lateinit var tvName: TextView
     lateinit var tvPhoneNumber: TextView
     lateinit var clView: ConstraintLayout
-    var contacts = dataSet
-    var onClickListener = _onClickListener
+    private var contacts = dataSet
+    private var onClickListener = _onClickListener
 
     interface OnClickListeners{
         fun onClick(contact: Contact, context: Context)
@@ -33,11 +34,12 @@ class MyAdapter(private val context: Context, dataSet: ArrayList<Contact>, priva
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        tvSNo.append(contacts[position].getSno())
-        tvName.append(contacts[position].getName())
-        tvPhoneNumber.append(contacts[position].getPhoneNumber())
+        Log.d("Contacts",contacts.toString())
+        tvSNo.text = (contacts[position].getSno())
+        tvName.text = (contacts[position].getName())
+        tvPhoneNumber.text = (contacts[position].getPhoneNumber())
         clView.setOnClickListener {
-            onClickListener.onClick(contacts[position], context)
+            onClickListener.onClick(contacts[holder.adapterPosition], context)
         }
     }
 
@@ -47,10 +49,6 @@ class MyAdapter(private val context: Context, dataSet: ArrayList<Contact>, priva
 
     fun addData(contact: Contact){
         contacts.add(contact)
-        notifyItemInserted(contacts.size)
-    }
-
-    override fun getItemId(position: Int): Long {
-        return super.getItemId(position)
+        Log.d("debugging",contacts.toString())
     }
 }
