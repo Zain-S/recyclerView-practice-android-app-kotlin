@@ -51,4 +51,9 @@ class MyAdapter(private val context: Context, dataSet: ArrayList<Contact>, priva
         contacts.add(contact)
         Log.d("debugging",contacts.toString())
     }
+
+    fun deleteData(position: Int){
+        contacts.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }

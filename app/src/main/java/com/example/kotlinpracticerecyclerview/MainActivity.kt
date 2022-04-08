@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinpracticerecyclerview.databinding.ActivityMainBinding
 
 
@@ -48,7 +50,23 @@ class MainActivity : AppCompatActivity() {
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             }
         }
+
+        // adapter
         adapter = MyAdapter(this.applicationContext, contacts, onClickListener)
+
+        // swipe functionality
+        val swipeGesture = object : SwipeGesture(this){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                when(direction){
+                    ItemTouchHelper.LEFT -> {
+                        adapter.deleteData(viewHolder.absoluteAdapterPosition)
+                    }
+                }
+            }
+        }
+        val techHelper = ItemTouchHelper(swipeGesture)
+        techHelper.attachToRecyclerView(binding.rvContacts)
+
         binding.rvContacts.adapter = adapter
 
         //get Data from AddContact class
